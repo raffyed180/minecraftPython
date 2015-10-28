@@ -1,0 +1,9 @@
+name: BookCode
+main: com.rafael.bookcode.BookCode
+version: 1.0
+
+commands:
+    run:
+        description: Writes book into text files and run them on python.
+    testcom:
+        description: Test commands
