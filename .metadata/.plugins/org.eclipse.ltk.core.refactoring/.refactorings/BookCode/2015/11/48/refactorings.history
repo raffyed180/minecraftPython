@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;dirName&apos; in &apos;com.rafael.bookcode.BookCode&apos; to &apos;dir&apos;&#x0D;&#x0A;- Original project: &apos;BookCode&apos;&#x0D;&#x0A;- Original element: &apos;com.rafael.bookcode.BookCode.dirName&apos;&#x0D;&#x0A;- Renamed element: &apos;com.rafael.bookcode.BookCode.dir&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;dirName&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;com.rafael.bookcode{BookCode.java[BookCode^dirName" name="dir" references="true" setter="false" stamp="1448358598825" textual="false" version="1.0"/>
+</session>
