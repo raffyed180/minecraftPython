@@ -33,7 +33,7 @@ public class BookCode extends JavaPlugin{
 	private boolean ready = false;
 	
 	//Enter path to python here
-	private String pythonPath;
+	private String pythonPath = "/Python27/python";
 	
 	//private String programPath = "/Users/Rafael/Spigot/ServerSpigot/" ;
 	
@@ -52,14 +52,14 @@ public class BookCode extends JavaPlugin{
 
 	this.saveDefaultConfig();
 	
-	if (this.getConfig().getString("pyPath").contains("python")){
-		getLogger().info("THE PATH IS SET.");
-		pythonPath = this.getConfig().getString("pyPath");
-		ready = true;
+	if (this.getConfig().getString("pyPath").equals("null")){
+		getLogger().info("THERE IS NO PATH.");
+		ready = false;
 	}
 	else{
-		getLogger().info("THERE IS NO PATH");
-		ready = false;
+		getLogger().info("THE PATH IS SET");
+		pythonPath = this.getConfig().getString("pyPath");
+		ready = true;
 	}
 		
 	}
@@ -70,8 +70,6 @@ public class BookCode extends JavaPlugin{
 	 * @param b
 	 */
 	public void codeBook(BookMeta b){
-	
-	if(ready){
 		getLogger().info("METHOD IS FUNCTIONING");
 		String title = b.getTitle();
    	 List<String> pages = b.getPages();
@@ -121,13 +119,6 @@ public class BookCode extends JavaPlugin{
 			}
 		
 	}
-	else
-	{
-		getLogger().info("wwwwwwwwwwhhhhhhhhhaaaaaaaaaatttttt????????");
-	 
-	}
-		
-	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 	    
@@ -144,9 +135,11 @@ public class BookCode extends JavaPlugin{
 		    	{
 	    		
 			    	 book = (BookMeta) item;
-			    	
-			    	 codeBook(book);
-			    	
+			    	 if (ready)
+			    		 {codeBook(book);}
+			    	 else{
+			    		 getLogger().info("wwwwwwwwwwhhhhhhhhhaaaaaaaaaatttttt????????");
+			    	 }
 			    	 
 		    	 	}
 				    else

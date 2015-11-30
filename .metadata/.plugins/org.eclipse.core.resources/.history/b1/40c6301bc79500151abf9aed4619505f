@@ -30,10 +30,8 @@ public class BookCode extends JavaPlugin{
 	private String mainDir;
 	private File dir;
 	
-	private boolean ready = false;
-	
 	//Enter path to python here
-	private String pythonPath;
+	private String pythonPath = "/Python27/python" ;
 	
 	//private String programPath = "/Users/Rafael/Spigot/ServerSpigot/" ;
 	
@@ -52,14 +50,11 @@ public class BookCode extends JavaPlugin{
 
 	this.saveDefaultConfig();
 	
-	if (this.getConfig().getString("pyPath").contains("python")){
+	if (this.getConfig().getBoolean("pathSet")){
 		getLogger().info("THE PATH IS SET.");
-		pythonPath = this.getConfig().getString("pyPath");
-		ready = true;
 	}
 	else{
 		getLogger().info("THERE IS NO PATH");
-		ready = false;
 	}
 		
 	}
@@ -70,8 +65,6 @@ public class BookCode extends JavaPlugin{
 	 * @param b
 	 */
 	public void codeBook(BookMeta b){
-	
-	if(ready){
 		getLogger().info("METHOD IS FUNCTIONING");
 		String title = b.getTitle();
    	 List<String> pages = b.getPages();
@@ -121,13 +114,6 @@ public class BookCode extends JavaPlugin{
 			}
 		
 	}
-	else
-	{
-		getLogger().info("wwwwwwwwwwhhhhhhhhhaaaaaaaaaatttttt????????");
-	 
-	}
-		
-	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
 	    
@@ -144,9 +130,7 @@ public class BookCode extends JavaPlugin{
 		    	{
 	    		
 			    	 book = (BookMeta) item;
-			    	
 			    	 codeBook(book);
-			    	
 			    	 
 		    	 	}
 				    else
@@ -159,7 +143,9 @@ public class BookCode extends JavaPlugin{
 		    	sender.sendMessage("Somehow you are not a player?");}
 		    }
 	    
-	    
+	    if(cmd.getName().equalsIgnoreCase("testcom")){
+	        sender.sendMessage("Testing commands 123 123");
+	    }
 	       return false;
 	}
 	
