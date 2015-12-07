@@ -5,4 +5,19 @@
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
 <fullyQualifiedTypeName name="java.io.BufferedWriter"/>
 <fullyQualifiedTypeName name="java.io.FileWriter"/>
+<fullyQualifiedTypeName name="org.bukkit.event.player.PlayerInteractEvent"/>
+<fullyQualifiedTypeName name="net.minecraft.server.v1_8_R1.Block"/>
+<fullyQualifiedTypeName name="org.bukkit.material.Chest"/>
+<fullyQualifiedTypeName name="org.bukkit.event.Listener"/>
+<fullyQualifiedTypeName name="org.bukkit.event.EventHandler"/>
+<fullyQualifiedTypeName name="org.bukkit.Material"/>
+<fullyQualifiedTypeName name="org.bukkit.block.Chest"/>
+<fullyQualifiedTypeName name="org.bukkit.inventory.Inventory"/>
+<fullyQualifiedTypeName name="org.bukkit.inventory.ItemStack"/>
+<fullyQualifiedTypeName name="org.bukkit.inventory.meta.BookMeta"/>
+<fullyQualifiedTypeName name="org.bukkit.Bukkit"/>
+<fullyQualifiedTypeName name="org.bukkit.event.block.BlockCanBuildEvent"/>
+<fullyQualifiedTypeName name="org.bukkit.event.block.BlockRedstoneEvent"/>
+<fullyQualifiedTypeName name="org.bukkit.block.BlockFace"/>
+<fullyQualifiedTypeName name="org.bukkit.block.Block"/>
 </qualifiedTypeNameHistroy>
