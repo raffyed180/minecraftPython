@@ -28,31 +28,29 @@ import org.bukkit.event.block.Action;
 
 public class BookCode extends JavaPlugin{
 
-	private Player player;
-	private BookMeta book;
 	private String prgDir;
 	
 	private String mainDir;
 	private File dir;
 	
 	private boolean ready = false;
-	
 	//Enter path to python here
 	private String pythonPath;
 	
-	//private String programPath = "/Users/Rafael/Spigot/ServerSpigot/" ;
 	
 	public void onEnable(){
+		
 	getLogger().info("BookCode is ready.");
 	
-	//config.addDefault("youAreAwesome", null);
 	
 	mainDir = System.getProperty("user.dir");
 	prgDir = mainDir + "\\plugins\\programs";
 	getLogger().info(mainDir);
-	dir = new File(mainDir );
-	//dir.mkdir();
 	new File(prgDir).mkdir();
+	
+	dir = new File(prgDir );
+	//dir.mkdir();
+	
 	
 
 	this.saveDefaultConfig();
@@ -60,6 +58,7 @@ public class BookCode extends JavaPlugin{
 	if (this.getConfig().getString("pyPath").contains("python")){
 		getLogger().info("THE PATH IS SET.");
 		pythonPath = this.getConfig().getString("pyPath");
+		getLogger().info(pythonPath);
 		ready = true;
 	}
 	else{
@@ -69,112 +68,13 @@ public class BookCode extends JavaPlugin{
 	
 	
 	/*new LeverListener(this)*/
-	getServer().getPluginManager().registerEvents(new LeverListener(), this);
+	getServer().getPluginManager().registerEvents(new LeverListener(pythonPath, dir), this);
 	
 	}
-	
-	
-	/**
-	 * A method that writes books into Python files and runs them
-	 * @param b
-	 */
-	public void codeBook(BookMeta b){
-	
-	if(ready){
-		getLogger().info("METHOD IS FUNCTIONING");
-		String title = b.getTitle();
-   	 List<String> pages = b.getPages();
-   	 
-   	  //Makes a python file and writes in it.
-   	 try 
-   	 {
-   		 File pyfile = new File(prgDir, title + ".py");
-   		 BufferedWriter writer = new BufferedWriter(new FileWriter(pyfile));
-   		 
-	    	 //PrintWriter writer = new PrintWriter( dir +"\\"+ title + ".py");
-	    	 //sender.sendMessage("title " + title );
-	    	 
-			for (String page : pages)
-			{
-				Scanner in = new Scanner(page);
-				
-		    	while (in.hasNextLine())
-		    	{
-		    		String line = in.nextLine(); ////Scan each line in the book
-		    		writer.write(line +"\n");
-		    		//writer.println(line);		///writes the scanned line in the python file 
-					//sender.sendMessage(line );	///This just prints the lines scanned
-		    	}
-		    	
-		    	in.close();
-		    }
-			
-			
-			writer.close();
-			
-			
-					//ProcessBuilder pb = new ProcessBuilder(pythonPath, programPath + title + ".py");
-					//ProcessBuilder pb = new ProcessBuilder("/Python27/python", "/Users/Rafael/DIRT/ServerSpigot" + title + ".py");
-					//Process p = Runtime.getRuntime().exec("python "+ title+".py");
-					//ProcessBuilder pb = new ProcessBuilder("/Python27/python", "/Users/Rafael/Spigot/ServerSpigot/" + title + ".py");
-					
-			ProcessBuilder pb = new ProcessBuilder(pythonPath,  title + ".py");
-			pb.directory(dir);
-			//sender.sendMessage(""+pb.directory());
-			Process p = pb.start();
-   	 } 
-	    	catch (IOException e) 
-   	 	{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-	}
-	else
-	{
-		getLogger().info("path not ready");
-	 
-	}
-		
-	}
-	
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
-	    
-		if(cmd.getName().equalsIgnoreCase("run")){
-	    	
-	    	if (sender instanceof Player)
-	    	{
-	    	
-	    	player = (Player) sender;	
-	    	ItemMeta item	= player.getItemInHand().getItemMeta();
-	    	
-	    	// Checks if the held item is a book. If not, prints a method
-		    	if (item instanceof BookMeta)
-		    	{
-	    		
-			    	 book = (BookMeta) item;
-			    	
-			    	 codeBook(book);
-			    	
-			    	 
-		    	 	}
-				    else
-				    {
-				    	sender.sendMessage("Thats not a book.");
-				    }
-	    	}
-		    else
-		    {
-		    	sender.sendMessage("Somehow you are not a player?");}
-		    }
-	    
-		
-	
-	       return false;
-	}
-	
 	
 
+	
+	
 	public void onDisable(){
 		
 	}
