@@ -46,6 +46,7 @@ public class LeverListener implements Listener{
 		 if(chest.contains(Material.WRITTEN_BOOK) || chest.contains(Material.BOOK) || chest.contains(Material.BOOK_AND_QUILL))
 		 {
 			 ItemStack[] content = chest.getContents();
+<<<<<<< HEAD
 			 ////for(int i =0; i<content.length; i++)
 			 for (ItemStack stack : content)
 			 {
@@ -65,6 +66,20 @@ public class LeverListener implements Listener{
 						 
 						 BookMeta book = (BookMeta) stack.getItemMeta();
 						 					
+=======
+			 for(int i =0; i<content.length; i++)
+			 //for (ItemStack stack : content)
+			 {
+				// if (stuff[i].hasItemMeta())
+				 if(!content[i].equals(null))
+				 {
+					 Bukkit.broadcastMessage("Not null checking if it is a book");
+				 if (  content[i].getItemMeta() instanceof BookMeta)
+					//if(BookMeta.class.isInstance(stuff[i]))
+				 {
+					 BookMeta book = (BookMeta) content[i].getItemMeta();
+					 					
+>>>>>>> 243711d656f355cc03528f13a9f44b60c9be9af3
 					String title = book.getTitle();
 					List<String> pages = book.getPages();
 				   	 
@@ -96,6 +111,7 @@ public class LeverListener implements Listener{
 						pb.directory(prgDirectory);
 						pb.start();
 				   	 } 
+<<<<<<< HEAD
 					 
 				   	 catch (IOException e) 
 				   	 {
@@ -104,6 +120,16 @@ public class LeverListener implements Listener{
 				   	 }
 					 
 					 
+=======
+					 
+				   	 catch (IOException e) 
+				   	 {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+				   	 }
+					 
+					 
+>>>>>>> 243711d656f355cc03528f13a9f44b60c9be9af3
 				}
 		 }
 				 /*catch (NullPointerException e){
