@@ -42,11 +42,11 @@
 		<item value="false" key="JarManifestWizardPage.SAVE_MANIFEST"/>
 		<item value="false" key="JarPackageWizardPage.EXPORT_OUTPUT_FOLDER"/>
 		<list key="JarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="C:\Users\Rafael\Desktop\MinecraftGIT\minecraftPython\bookcode-1.14.jar"/>
 			<item value="C:\Users\Rafael\Desktop\MinecraftGIT\minecraftPython\bookcode-1.135.jar"/>
 			<item value="C:\Users\Rafael\Desktop\MinecraftGIT\minecraftPython\bookcode-1.13.jar"/>
 			<item value="C:\Users\Rafael\Desktop\MinecraftGIT\minecraftPython\bookcode-1.12.jar"/>
 			<item value="C:\Users\Rafael\Desktop\MinecraftGIT\minecraftPython\bookcode-1.11.jar"/>
-			<item value="C:\Users\Rafael\Desktop\MinecraftGIT\minecraftPython\bookcode-1.01.jar"/>
 		</list>
 	</section>
 	<section name="JavaElementSearchActions">

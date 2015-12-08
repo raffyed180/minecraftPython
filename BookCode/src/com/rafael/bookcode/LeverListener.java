@@ -1,5 +1,12 @@
 package com.rafael.bookcode;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -19,9 +26,18 @@ import org.bukkit.inventory.meta.BookMeta;
 public class LeverListener implements Listener{
 	private BookCode plugin;
 	
-	/*public LeverListener(BookCode plugin){
-		plugin.getServer().getPluginManager().registerEvents(this, plugin);
-	}*/
+	private String pythonPath;
+	private String prgDir;
+	
+	private String mainDir;
+	private File prgDirectory;
+	
+	public LeverListener(String p, File dir){
+		pythonPath = p;
+		prgDirectory = dir;
+	}
+	
+	
 	public void chestReader(Chest c)
 	{
 		Bukkit.broadcastMessage("Initiating chestReader");
@@ -29,14 +45,65 @@ public class LeverListener implements Listener{
 		 Inventory chest = c.getBlockInventory();
 		 if(chest.contains(Material.WRITTEN_BOOK) || chest.contains(Material.BOOK) || chest.contains(Material.BOOK_AND_QUILL))
 		 {
-			 ItemStack[] stuff = chest.getContents();
-			 for(int i =0; i<stuff.length; i++)
+			 ItemStack[] content = chest.getContents();
+			 for(int i =0; i<content.length; i++)
+			 //for (ItemStack stack : content)
 			 {
-				 if (stuff[i].getItemMeta() instanceof BookMeta){
-					 BookMeta b = (BookMeta) stuff[i].getItemMeta();
-					 Bukkit.broadcastMessage("There is a book called: "+ b.getTitle());
+				// if (stuff[i].hasItemMeta())
+				 if(!content[i].equals(null))
+				 {
+					 Bukkit.broadcastMessage("Not null checking if it is a book");
+				 if (  content[i].getItemMeta() instanceof BookMeta)
+					//if(BookMeta.class.isInstance(stuff[i]))
+				 {
+					 BookMeta book = (BookMeta) content[i].getItemMeta();
+					 					
+					String title = book.getTitle();
+					List<String> pages = book.getPages();
+				   	 
+					
+					Bukkit.broadcastMessage("There is a book called: "+ title);
+				   	  //Makes a python file and writes in it.
+				   	 try 
+				   	 {
+				   		//File pyfile = new File(prgDir, title + ".py");
+				   		File pyfile = new File(prgDirectory, title + ".py");
+				   		BufferedWriter writer = new BufferedWriter(new FileWriter(pyfile));
+				   		 
+					    for (String page : pages)
+						{
+							Scanner in = new Scanner(page);
+								
+						    while (in.hasNextLine())
+						    {
+						    	String line = in.nextLine(); ////Scan each line in the book
+						    	writer.write(line +"\n");
+						    }
+						    	
+						    in.close();
+						}
+						
+					    writer.close();
+							
+						ProcessBuilder pb = new ProcessBuilder(pythonPath,  title + ".py");
+						pb.directory(prgDirectory);
+						pb.start();
+				   	 } 
 					 
-				 }
+				   	 catch (IOException e) 
+				   	 {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+				   	 }
+					 
+					 
+				}
+		 }
+				 /*catch (NullPointerException e){
+					// TODO Auto-generated catch block
+						e.printStackTrace();
+						Bukkit.broadcastMessage("There's a NullPointerException");
+				 }*/
 			 }
 		 }
 		 else
@@ -48,69 +115,60 @@ public class LeverListener implements Listener{
 	@EventHandler
 	public void onSwitch( BlockRedstoneEvent event ){
 		
-		
-		/*if (event.getClickedBlock().getType() == Material.CHEST){
-			event.getPlayer().sendMessage("Can get chest" );
-		}
-		
-		if (event.getClickedBlock().getType() == Material.CHEST && event.getClickedBlock().isBlockIndirectlyPowered()){
-			event.getPlayer().sendMessage("Chest can be powered" );
-			
-			Chest c = (Chest) event.getClickedBlock();
-			event.getPlayer().sendMessage("Inventory" + c.getBlockInventory());
-		}*/
-		
 		if (event.getBlock().getType().equals(Material.LEVER))
 		{
 			Block lever = event.getBlock();
-			if (lever.isBlockIndirectlyPowered() && lever.getRelative(BlockFace.NORTH).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(0, 1, -1).getType().equals(Material.CHEST))
+			
+			if (lever.isBlockIndirectlyPowered())
 			{
-				Bukkit.broadcastMessage("Looking north");
+				if (lever.getRelative(BlockFace.NORTH).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(0, 1, -1).getType().equals(Material.CHEST))
+				{
+					Bukkit.broadcastMessage("Looking north");
+					
+					if (lever.getRelative(0, 1, -1).getState() instanceof Chest)
+					{
+					Chest c = (Chest) lever.getRelative(0, 1, -1).getState();
+					chestReader(c);
+					}
+				}
 				
-				if (lever.getRelative(0, 1, -1).getState() instanceof Chest)
+				else if (lever.isBlockIndirectlyPowered() && lever.getRelative(BlockFace.SOUTH).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(0, 1, 1).getType().equals(Material.CHEST))
 				{
-				Chest c = (Chest) lever.getRelative(0, 1, -1).getState();
-				chestReader(c);
+					Bukkit.broadcastMessage("Looking south");
+					if (lever.getRelative(0, 1, -1).getState() instanceof Chest)
+					{
+					Chest c = (Chest) lever.getRelative(0, 1, -1).getState();
+					chestReader(c);
+					}
 				}
-				else{Bukkit.broadcastMessage("Casting Failed");}
-			}
-			
-			if (lever.isBlockIndirectlyPowered() && lever.getRelative(BlockFace.SOUTH).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(0, 1, 1).getType().equals(Material.CHEST))
-			{
-				Bukkit.broadcastMessage("Looking south");
-				if (lever.getRelative(0, 1, -1).getState() instanceof Chest)
+				
+				else if (lever.isBlockIndirectlyPowered() && lever.getRelative(BlockFace.EAST).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(1, 1, 0).getType().equals(Material.CHEST))
 				{
-				Chest c = (Chest) lever.getRelative(0, 1, -1).getState();
-				chestReader(c);
+					Bukkit.broadcastMessage("Looking east");
+					if (lever.getRelative(0, 1, -1).getState() instanceof Chest)
+					{
+					Chest c = (Chest) lever.getRelative(0, 1, -1).getState();
+					chestReader(c);
+					}
 				}
-				else{Bukkit.broadcastMessage("Casting Failed");}
-			}
-			
-			if (lever.isBlockIndirectlyPowered() && lever.getRelative(BlockFace.EAST).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(1, 1, 0).getType().equals(Material.CHEST))
-			{
-				Bukkit.broadcastMessage("Looking east");
-				if (lever.getRelative(0, 1, -1).getState() instanceof Chest)
+				
+				else if (lever.isBlockIndirectlyPowered() && lever.getRelative(BlockFace.WEST).getType().equals(Material.LAPIS_BLOCK)&& lever.getRelative(-1, 1, 0).getType().equals(Material.CHEST))
 				{
-				Chest c = (Chest) lever.getRelative(0, 1, -1).getState();
-				chestReader(c);
+					Bukkit.broadcastMessage("Looking west");
+					if (lever.getRelative(0, 1, -1).getState() instanceof Chest)
+					{
+					Chest c = (Chest) lever.getRelative(0, 1, -1).getState();
+					chestReader(c);
+					}
+					
 				}
-				else{Bukkit.broadcastMessage("Casting Failed");}
-			}
-			
-			if (lever.isBlockIndirectlyPowered() && lever.getRelative(BlockFace.WEST).getType().equals(Material.LAPIS_BLOCK)&& lever.getRelative(-1, 1, 0).getType().equals(Material.CHEST))
-			{
-				Bukkit.broadcastMessage("Looking west");
-				if (lever.getRelative(0, 1, -1).getState() instanceof Chest)
+				else
 				{
-				Chest c = (Chest) lever.getRelative(0, 1, -1).getState();
-				chestReader(c);
+					Bukkit.broadcastMessage("Casting Failed");
 				}
-				else{Bukkit.broadcastMessage("Casting Failed");}
 			}
 		
 		}
-		
-		//if(event.getClickedBlock().getType().equals(Material.CHEST) && event.getClickedBlock().isBlockIndirectlyPowered())
 		
 		
 		
