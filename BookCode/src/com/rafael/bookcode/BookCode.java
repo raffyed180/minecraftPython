@@ -33,11 +33,8 @@ public class BookCode extends JavaPlugin{
 	private String mainDir;
 	private File dir;
 	
-<<<<<<< HEAD
 	private Player player;
 	
-=======
->>>>>>> 243711d656f355cc03528f13a9f44b60c9be9af3
 	private boolean ready = false;
 	//Enter path to python here
 	private String pythonPath;
@@ -75,7 +72,6 @@ public class BookCode extends JavaPlugin{
 	/*new LeverListener(this)*/
 	getServer().getPluginManager().registerEvents(new LeverListener(pythonPath, dir), this);
 	
-<<<<<<< HEAD
 	}
 	
 
@@ -178,13 +174,6 @@ public boolean onCommand(CommandSender sender, Command cmd, String label, String
 	       return false;
 	}
 	
-=======
-	}
-	
-
-	
-	
->>>>>>> 243711d656f355cc03528f13a9f44b60c9be9af3
 	public void onDisable(){
 		
 	}
