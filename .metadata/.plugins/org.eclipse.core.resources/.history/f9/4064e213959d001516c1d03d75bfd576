@@ -1,0 +1,66 @@
+package com.rafael.bookcode;
+
+import java.io.File;
+
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class BookCode extends JavaPlugin{
+
+	private String prgDir;
+	
+	private String mainDir;
+	private File dir;
+	
+	private Player player;
+	
+	private boolean ready = false;
+	//Enter path to python here
+	private String pythonPath;
+	
+	
+	public void onEnable(){
+		
+	getLogger().info("BookCode is ready.");
+	
+	
+	mainDir = System.getProperty("user.dir");
+	prgDir = mainDir + "\\plugins\\programs";
+	getLogger().info(mainDir);
+	new File(prgDir).mkdir();
+	
+	dir = new File(prgDir );
+	//dir.mkdir();
+	
+	
+
+	this.saveDefaultConfig();
+	
+	if (this.getConfig().getString("pyPath").contains("python")){
+		getLogger().info("THE PATH IS SET.");
+		pythonPath = this.getConfig().getString("pyPath");
+		getLogger().info(pythonPath);
+		ready = true;
+	}
+	else{
+		getLogger().info("THERE IS NO PATH");
+		ready = false;
+	}
+	
+	
+	/*new LeverListener(this)*/
+	getServer().getPluginManager().registerEvents(new LeverListener(pythonPath, dir), this);
+	
+	}
+	
+
+	
+	
+	
+
+	
+	public void onDisable(){
+		
+	}
+
+}
