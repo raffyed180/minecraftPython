@@ -90,9 +90,9 @@ public class BookCode extends JavaPlugin{
    	 try 
    	 {
    		 File pyfile = new File(prgDir, title + ".py");
-   		 //BufferedWriter writer = new BufferedWriter(new FileWriter(pyfile));
+   		 BufferedWriter writer = new BufferedWriter(new FileWriter(pyfile));
    		 
-	    	 PrintWriter writer = new PrintWriter( pyfile);
+	    	 //PrintWriter writer = new PrintWriter( dir +"\\"+ title + ".py");
 	    	 //sender.sendMessage("title " + title );
 	    	 
 			for (String page : pages)
@@ -102,8 +102,8 @@ public class BookCode extends JavaPlugin{
 		    	while (in.hasNextLine())
 		    	{
 		    		String line = in.nextLine(); ////Scan each line in the book
-		    		//writer.write(line +"\n");
-		    		writer.println(line);		///writes the scanned line in the python file 
+		    		writer.write(line +"\n");
+		    		//writer.println(line);		///writes the scanned line in the python file 
 					//sender.sendMessage(line );	///This just prints the lines scanned
 		    	}
 		    	

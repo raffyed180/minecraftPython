@@ -52,14 +52,14 @@ public class LeverListener implements Listener{
 				
 				 ////if(!content[i].equals(null))
 				 {
-					 /*Bukkit.broadcastMessage("Not null checking if it is a book");
-					 Bukkit.broadcastMessage("Not null checking if it is a book" + stack);*/
+					 Bukkit.broadcastMessage("Not null checking if it is a book");
+					 Bukkit.broadcastMessage("Not null checking if it is a book" + stack);
 				////if (  content[i].getItemMeta() instanceof BookMeta)
 					//if(BookMeta.class.isInstance(stuff[i]))
 					 
 					 
 					 if ( stack!=null && stack.getItemMeta() instanceof BookMeta)
-						 
+							 
 				 {
 					 ////BookMeta book = (BookMeta) content[i].getItemMeta();
 						 

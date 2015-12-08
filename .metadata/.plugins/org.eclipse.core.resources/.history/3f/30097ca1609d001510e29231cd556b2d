@@ -46,25 +46,18 @@ public class LeverListener implements Listener{
 		 if(chest.contains(Material.WRITTEN_BOOK) || chest.contains(Material.BOOK) || chest.contains(Material.BOOK_AND_QUILL))
 		 {
 			 ItemStack[] content = chest.getContents();
-			 ////for(int i =0; i<content.length; i++)
-			 for (ItemStack stack : content)
+			 for(int i =0; i<content.length; i++)
+			 //for (ItemStack stack : content)
 			 {
-				
-				 ////if(!content[i].equals(null))
+				// if (stuff[i].hasItemMeta())
+				 if(!content[i].equals(null))
 				 {
-					 /*Bukkit.broadcastMessage("Not null checking if it is a book");
-					 Bukkit.broadcastMessage("Not null checking if it is a book" + stack);*/
-				////if (  content[i].getItemMeta() instanceof BookMeta)
+					 Bukkit.broadcastMessage("Not null checking if it is a book");
+				 if (  content[i].getItemMeta() instanceof BookMeta)
 					//if(BookMeta.class.isInstance(stuff[i]))
-					 
-					 
-					 if ( stack!=null && stack.getItemMeta() instanceof BookMeta)
-						 
 				 {
-					 ////BookMeta book = (BookMeta) content[i].getItemMeta();
-						 
-						 BookMeta book = (BookMeta) stack.getItemMeta();
-						 					
+					 BookMeta book = (BookMeta) content[i].getItemMeta();
+					 					
 					String title = book.getTitle();
 					List<String> pages = book.getPages();
 				   	 
