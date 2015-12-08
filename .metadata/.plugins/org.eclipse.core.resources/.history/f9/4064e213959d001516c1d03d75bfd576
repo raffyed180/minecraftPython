@@ -2,13 +2,17 @@ package com.rafael.bookcode;
 
 import java.io.File;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class BookCode extends JavaPlugin{
 
 	private String prgDir;
 	
+	private String mainDir;
 	private File dir;
+	
+	private Player player;
 	
 	private boolean ready = false;
 	//Enter path to python here
@@ -20,8 +24,9 @@ public class BookCode extends JavaPlugin{
 	getLogger().info("BookCode is ready.");
 	
 	
-	prgDir = System.getProperty("user.dir") + "\\plugins\\programs";
-
+	mainDir = System.getProperty("user.dir");
+	prgDir = mainDir + "\\plugins\\programs";
+	getLogger().info(mainDir);
 	new File(prgDir).mkdir();
 	
 	dir = new File(prgDir );
@@ -44,13 +49,8 @@ public class BookCode extends JavaPlugin{
 	
 	
 	/*new LeverListener(this)*/
-	if(ready)
-	{
 	getServer().getPluginManager().registerEvents(new LeverListener(pythonPath, dir), this);
-	}
-	else{
-		getLogger().info("Path to python not set. Edit config file");
-	}
+	
 	}
 	
 

@@ -122,7 +122,7 @@ public class LeverListener implements Listener{
 				//If the lever is on the south side of the lapis block
 				if(check.getAttachedFace().equals(BlockFace.NORTH) && lever.getRelative(BlockFace.NORTH).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(0, 1, -1).getType().equals(Material.CHEST))
 				{
-					//Bukkit.broadcastMessage("Lever on south side of the block");
+					Bukkit.broadcastMessage("Lever on south side of the block");
 					
 					if (lever.getRelative(0, 1, -1).getState() instanceof Chest)
 					{
@@ -134,7 +134,7 @@ public class LeverListener implements Listener{
 				//If the lever is on the north side of the lapis block
 				if(check.getAttachedFace().equals(BlockFace.SOUTH) && lever.getRelative(BlockFace.SOUTH).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(0, 1, 1).getType().equals(Material.CHEST))
 				{
-					//Bukkit.broadcastMessage("Lever on north side of the block");
+					Bukkit.broadcastMessage("Lever on north side of the block");
 					if (lever.getRelative(0, 1, 1).getState() instanceof Chest)
 					{
 					Chest c = (Chest) lever.getRelative(0, 1, 1).getState();
@@ -145,7 +145,7 @@ public class LeverListener implements Listener{
 				//If the lever is on the west side of the lapis block
 				if(check.getAttachedFace().equals(BlockFace.EAST) && lever.getRelative(BlockFace.EAST).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(1, 1, 0).getType().equals(Material.CHEST))
 				{
-					//Bukkit.broadcastMessage("Lever on west side of the block");
+					Bukkit.broadcastMessage("Lever on west side of the block");
 					if (lever.getRelative(1, 1, 0).getState() instanceof Chest)
 					{
 					Chest c = (Chest) lever.getRelative(1, 1, 0).getState();
@@ -156,7 +156,7 @@ public class LeverListener implements Listener{
 				//If the lever is on the east side of the lapis block
 				if(check.getAttachedFace().equals(BlockFace.WEST) && lever.getRelative(BlockFace.WEST).getType().equals(Material.LAPIS_BLOCK) && lever.getRelative(-1, 1, 0).getType().equals(Material.CHEST))
 				{
-					//Bukkit.broadcastMessage("Lever on east side of the block");
+					Bukkit.broadcastMessage("Lever on east side of the block");
 					if (lever.getRelative(-1, 1, 0).getState() instanceof Chest)
 					{
 					Chest c = (Chest) lever.getRelative(-1, 1, 0).getState();
